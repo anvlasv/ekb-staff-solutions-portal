@@ -8,6 +8,8 @@ import StepCard from "@/components/StepCard";
 import FAQSection from "@/components/FAQSection";
 import PrivacyPolicy from "@/components/PrivacyPolicy";
 import { Button } from "@/components/ui/button";
+import { Phone, Mail, MapPin } from "lucide-react";
+import ContactButtons from "@/components/ContactButtons";
 
 const Index = () => {
   useEffect(() => {
