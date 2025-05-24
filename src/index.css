@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -92,26 +92,124 @@
   }
 
   body {
-    @apply bg-background text-foreground font-['Inter',sans-serif];
+    @apply bg-background text-foreground font-['Inter',sans-serif] antialiased;
   }
 
-  h1, h2, h3, h4, h5 {
-    @apply font-bold text-brand-900;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-gray-900;
   }
 
+  /* Улучшенные градиенты */
   .gradient-bg {
-    @apply bg-gradient-to-r from-brand-700 to-brand-500;
+    @apply bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800;
   }
   
-  .section {
-    @apply py-16 px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl;
+  /* Улучшенная типографика */
+  .hero-title {
+    @apply text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight;
   }
-
+  
   .section-title {
-    @apply text-3xl md:text-4xl font-bold mb-8 text-center text-brand-900;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-8 text-center text-gray-900 tracking-tight;
   }
   
   .section-description {
-    @apply text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto;
+    @apply text-lg md:text-xl text-gray-600 mb-12 text-center max-w-4xl mx-auto leading-relaxed;
   }
+
+  /* Анимации и переходы */
+  .hover-lift {
+    @apply transition-all duration-300 hover:transform hover:-translate-y-2 hover:shadow-xl;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  /* Современные тени */
+  .modern-shadow {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-shadow {
+    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Улучшение форм */
+.form-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
+}
+
+.form-textarea {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 min-h-[120px] resize-none;
+}
+
+/* Улучшение кнопок */
+.btn-primary {
+  @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg;
+}
+
+.btn-secondary {
+  @apply bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .hero-title {
+    @apply text-3xl md:text-4xl;
+  }
+  
+  .section-title {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  .section-description {
+    @apply text-base md:text-lg;
+  }
+}
+
+/* Улучшения для скроллинга */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Стили для лучшей читаемости */
+p {
+  @apply leading-relaxed;
+}
+
+/* Hover эффекты для карточек */
+.service-card {
+  @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-1;
+}
+
+.contact-card {
+  @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
 }

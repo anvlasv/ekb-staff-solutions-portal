@@ -8,17 +8,22 @@ import StepCard from "@/components/StepCard";
 import FAQSection from "@/components/FAQSection";
 import PrivacyPolicy from "@/components/PrivacyPolicy";
 import { Button } from "@/components/ui/button";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Users, Clock, Shield, Award } from "lucide-react";
 import ContactButtons from "@/components/ContactButtons";
 
 const Index = () => {
   useEffect(() => {
-    // Set title for SEO
-    document.title = "Аренда линейного персонала и аутстаффинг в Екатеринбурге | ПрофПерсонал";
+    document.title = "Аренда линейного персонала и аутстаффинг в Екатеринбурге | ПрофКадры - Разнорабочие, грузчики, упаковщики";
+    
+    // Обновляем мета-описание
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Профессиональные услуги аренды линейного персонала в Екатеринбурге и области. Аутстаффинг разнорабочих, грузчиков, упаковщиков, сортировщиков, клининга и строителей. Быстрое предоставление квалифицированного персонала.');
+    }
   }, []);
 
   const scrollToRequest = () => {
-    const element = document.getElementById("request");
+    const element = document.getElementById("request-form");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -28,31 +33,59 @@ const Index = () => {
     <>
       <Header />
 
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-r from-brand-50 to-blue-50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
-            <div className="lg:col-span-3">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Аренда линейного персонала и аутстаффинг в Екатеринбурге
+      {/* Hero Section - Главный экран */}
+      <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                Аренда линейного персонала в Екатеринбурге
               </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                Предоставляем квалифицированный персонал для вашего бизнеса — разнорабочие, грузчики, упаковщики, сортировщики, клининг и строители. Закрываем кадровые потребности в любых масштабах.
+              <p className="text-xl md:text-2xl font-medium text-blue-100">
+                Аутстаффинг • Разнорабочие • Грузчики • Упаковщики
               </p>
-              <div className="flex flex-wrap gap-4">
-                <Button size="lg" onClick={scrollToRequest}>
+              <p className="text-lg text-blue-50 leading-relaxed">
+                Предоставляем квалифицированный персонал для вашего бизнеса от 1 дня до постоянного сотрудничества. 
+                Работаем по всему Екатеринбургу и Свердловской области.
+              </p>
+              
+              <div className="flex flex-wrap gap-4 pt-4">
+                <Button 
+                  size="lg" 
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg"
+                  onClick={scrollToRequest}
+                >
                   Заказать персонал
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}>
-                  Узнать больше
+                <Button 
+                  variant="outline" 
+                  size="lg"
+                  className="border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-4 text-lg"
+                  onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+                >
+                  Узнать подробнее
                 </Button>
               </div>
+
+              {/* Быстрые контакты */}
+              <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-blue-400/30">
+                <a 
+                  href={`tel:${(window as any).contactData?.phone}`}
+                  className="flex items-center gap-2 text-white hover:text-orange-300 transition-colors"
+                >
+                  <Phone className="w-5 h-5" />
+                  <span className="font-medium">{(window as any).contactData?.phoneDisplay}</span>
+                </a>
+                <ContactButtons size="sm" />
+              </div>
             </div>
-            <div className="lg:col-span-2">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+
+            <div className="lg:pl-8">
+              <div className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl">
                 <ContactForm 
                   title="Получить расчет стоимости"
-                  description="Заполните форму, и мы рассчитаем стоимость услуг в течение 30 минут"
+                  description="Заполните форму — перезвоним в течение 15 минут"
                   ctaText="Рассчитать стоимость"
                 />
               </div>
@@ -61,87 +94,129 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="section bg-white">
-        <div className="container mx-auto">
-          <h2 className="section-title">Наши услуги</h2>
-          <p className="section-description">
-            Предоставляем квалифицированный персонал для решения задач любой сложности
-          </p>
+      {/* Преимущества - краткий блок */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-bold text-lg mb-2">Быстро</h3>
+              <p className="text-gray-600">Персонал за 24 часа</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-bold text-lg mb-2">Надежно</h3>
+              <p className="text-gray-600">Юридическая чистота</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-bold text-lg mb-2">Качественно</h3>
+              <p className="text-gray-600">Проверенный персонал</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="font-bold text-lg mb-2">Выгодно</h3>
+              <p className="text-gray-600">Экономия до 30%</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Услуги */}
+      <section id="services" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              Наши услуги аренды персонала
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Предоставляем квалифицированный линейный персонал для решения любых производственных задач в Екатеринбурге и области
+            </p>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <ServiceCard
               title="Разнорабочие"
-              description="Универсальный персонал для выполнения широкого спектра задач"
+              description="Универсальный персонал для выполнения широкого спектра производственных и складских задач"
               icon={
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4Z" />
-                  <path d="M18 15.1V17C18 17.55 17.55 18 17 18H7C6.45 18 6 17.55 6 17V15.1C6 13.1 9.33 12 12 12C14.67 12 18 13.1 18 15.1Z" />
+                  <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 5.5V6.5L21 9ZM15 15.5V14.5L21 17V15L15 15.5ZM7.91 17C7.66 17.25 7.66 17.75 7.91 18S8.41 18.25 8.66 18L10.5 16.16L11.5 17.16C11.78 17.44 12.22 17.44 12.5 17.16C12.78 16.88 12.78 16.44 12.5 16.16L10.66 14.34L12.5 12.5C12.78 12.22 12.78 11.78 12.5 11.5C12.22 11.22 11.78 11.22 11.5 11.5L9.66 13.34L8.66 12.34C8.41 12.09 7.91 12.09 7.66 12.34C7.41 12.59 7.41 13.09 7.66 13.34L8.66 14.34L7.91 17Z" />
                 </svg>
               }
               features={[
                 "Погрузочно-разгрузочные работы",
-                "Уборка территорий",
-                "Подсобные работы на стройке",
-                "Складские работы"
+                "Уборка производственных помещений", 
+                "Подсобные работы на строительстве",
+                "Складские и логистические операции"
               ]}
               onClick={scrollToRequest}
             />
             
             <ServiceCard
               title="Грузчики"
-              description="Профессиональные грузчики для любого объема работ"
+              description="Профессиональные грузчики для погрузки, разгрузки и перемещения товаров любого объема"
               icon={
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 4V16H23L19 21L15 16H18V4H20M12 18V15H8V18H12M8 4V8H12V4H8M2 9H5V18H8V9H2M2 4V8H5V4H2Z" />
+                  <path d="M19,7H16V6A2,2 0 0,0 14,4H10A2,2 0 0,0 8,6V7H5A1,1 0 0,0 4,8V19A3,3 0 0,0 7,22H17A3,3 0 0,0 20,19V8A1,1 0 0,0 19,7M10,6H14V7H10V6M18,19A1,1 0 0,1 17,20H7A1,1 0 0,1 6,19V9H8V11H10V9H14V11H16V9H18V19Z" />
                 </svg>
               }
               features={[
                 "Погрузка/разгрузка транспорта",
-                "Перемещение грузов внутри склада",
+                "Перемещение грузов по складу",
                 "Такелажные работы",
-                "Командная работа для крупных объектов"
+                "Работа с крупногабаритными грузами"
               ]}
               onClick={scrollToRequest}
             />
             
             <ServiceCard
               title="Упаковщики"
-              description="Персонал для быстрой и качественной упаковки товаров"
+              description="Квалифицированные упаковщики для быстрой и качественной упаковки продукции"
               icon={
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M21,16.5C21,16.88 20.79,17.21 20.47,17.38L12.57,21.82C12.41,21.94 12.21,22 12,22C11.79,22 11.59,21.94 11.43,21.82L3.53,17.38C3.21,17.21 3,16.88 3,16.5V7.5C3,7.12 3.21,6.79 3.53,6.62L11.43,2.18C11.59,2.06 11.79,2 12,2C12.21,2 12.41,2.06 12.57,2.18L20.47,6.62C20.79,6.79 21,7.12 21,7.5V16.5M12,4.15L6.04,7.5L12,10.85L17.96,7.5L12,4.15Z" />
+                  <path d="M12,2L1,7L12,12L23,7L12,2M5,13.18V17.18L12,21L19,17.18V13.18L12,17L5,13.18Z" />
                 </svg>
               }
               features={[
-                "Сборка и упаковка товаров",
+                "Упаковка и комплектация товаров",
                 "Маркировка продукции",
-                "Комплектация заказов",
-                "Контроль качества"
+                "Сборка заказов для отправки",
+                "Контроль качества упаковки"
               ]}
               onClick={scrollToRequest}
             />
             
             <ServiceCard
               title="Сортировщики"
-              description="Персонал для организации складской логистики"
+              description="Персонал для организации складской логистики и сортировки товаров"
               icon={
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3,5H9V11H3V5M5,7V9H7V7H5M11,7H21V9H11V7M11,15H21V17H11V15M5,13V15H7V13H5M3,13H9V19H3V13Z" />
+                  <path d="M3,3H9V7H3V3M3,9H9V13H3V9M3,15H9V19H3V15M11,3H21V7H11V3M11,9H21V13H11V9M11,15H21V19H11V15Z" />
                 </svg>
               }
               features={[
                 "Сортировка товаров по категориям",
                 "Распределение по складским зонам",
-                "Инвентаризация",
-                "Учет и контроль товарооборота"
+                "Проведение инвентаризации",
+                "Учет и контроль движения товаров"
               ]}
               onClick={scrollToRequest}
             />
             
             <ServiceCard
               title="Клининговый персонал"
-              description="Профессиональная уборка помещений и территорий"
+              description="Профессиональная уборка производственных и офисных помещений"
               icon={
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M19.36,2.72L20.78,4.14L15.06,9.85C16.13,11.39 16.28,13.24 15.38,14.44L9.06,8.12C10.26,7.22 12.11,7.37 13.65,8.44L19.36,2.72M5.93,17.57C3.92,15.56 2.69,13.16 2.35,10.92L7.23,8.83L14.67,16.27L12.58,21.15C10.34,20.81 7.94,19.58 5.93,17.57Z" />
@@ -149,276 +224,205 @@ const Index = () => {
               }
               features={[
                 "Уборка офисных помещений",
-                "Уборка производственных площадей",
-                "Клининг после строительства",
-                "Мойка окон и фасадов"
+                "Клининг производственных цехов",
+                "Уборка после строительных работ",
+                "Мойка окон и витрин"
               ]}
               onClick={scrollToRequest}
             />
             
             <ServiceCard
               title="Строители"
-              description="Квалифицированные строители различных специальностей"
+              description="Квалифицированные строители различных специальностей для ваших проектов"
               icon={
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12,18.54L19.37,12.8L21,14.07L12,21.07L3,14.07L4.62,12.81L12,18.54M12,16L3,9L12,2L21,9L12,16M12,4.53L6.26,9L12,13.47L17.74,9L12,4.53Z" />
+                  <path d="M12,18H6V14H4V18A2,2 0 0,0 6,20H18A2,2 0 0,0 20,18V14H18V18H12M16,10H20V12H16V10M16,6H20V8H16V6M16,2H20V4H16V2M4,14H8V12H4V14M4,18H8V16H4V18M4,22H8V20H4V22M12,8H10V10H8V8H6V6H8V4H10V6H12V8Z" />
                 </svg>
               }
               features={[
                 "Общестроительные работы",
                 "Отделочные работы",
-                "Демонтаж",
-                "Погрузка и вывоз строительного мусора"
+                "Демонтажные работы",
+                "Вывоз строительного мусора"
               ]}
               onClick={scrollToRequest}
             />
           </div>
         </div>
       </section>
-      
-      {/* Benefits Section */}
-      <section id="benefits" className="section bg-gray-50">
-        <div className="container mx-auto">
-          <h2 className="section-title">Преимущества работы с нами</h2>
-          <p className="section-description">
-            Почему клиенты выбирают нашу компанию для аутстаффинга персонала
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Оперативность</h3>
-              <p className="text-gray-600">
-                Предоставляем персонал в кратчайшие сроки – от 24 часов после оформления заявки.
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Юридическая чистота</h3>
-              <p className="text-gray-600">
-                Полное соответствие трудовому законодательству, отсутствие рисков штрафов и проверок.
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Экономия бюджета</h3>
-              <p className="text-gray-600">
-                Снижение затрат на кадровое делопроизводство, налоги и социальные отчисления до 30%.
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Проверенный персонал</h3>
-              <p className="text-gray-600">
-                Тщательный отбор и проверка каждого сотрудника перед направлением на объект.
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Гибкость</h3>
-              <p className="text-gray-600">
-                Возможность быстро масштабировать штат под сезонные потребности бизнеса.
-              </p>
-            </div>
-            
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="w-12 h-12 rounded-full gradient-bg flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Минимум документации</h3>
-              <p className="text-gray-600">
-                Упрощенный документооборот — один договор вместо десятков трудовых контрактов.
-              </p>
-            </div>
+
+      {/* Как мы работаем */}
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              Как мы работаем
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Простая и прозрачная процедура сотрудничества — от заявки до предоставления персонала
+            </p>
           </div>
-        </div>
-      </section>
-      
-      {/* Process Section */}
-      <section id="process" className="section bg-white">
-        <div className="container mx-auto">
-          <h2 className="section-title">Как мы работаем</h2>
-          <p className="section-description">
-            Простая и прозрачная процедура сотрудничества
-          </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <StepCard
               number={1}
-              title="Оформление заявки"
-              description="Вы оставляете заявку или звоните нам. Наш менеджер связывается с вами для уточнения деталей."
+              title="Заявка"
+              description="Оставляете заявку на сайте, по телефону или в мессенджере. Наш менеджер свяжется с вами в течение 15 минут."
             />
             <StepCard
               number={2}
-              title="Согласование условий"
-              description="Обсуждаем требования к кандидатам, объем работ, сроки и стоимость услуг."
+              title="Расчет"
+              description="Обсуждаем ваши требования, объем работ, сроки и рассчитываем стоимость услуг аренды персонала."
             />
             <StepCard
               number={3}
-              title="Подписание договора"
-              description="Готовим и подписываем договор на аутстаффинг или аренду персонала."
+              title="Договор"
+              description="Готовим и подписываем договор на аутстаффинг или аренду персонала с учетом всех ваших требований."
             />
             <StepCard
               number={4}
-              title="Предоставление персонала"
-              description="Направляем подобранных сотрудников на ваш объект в согласованные сроки."
+              title="Персонал"
+              description="Направляем подобранных и проверенных сотрудников на ваш объект в согласованные сроки."
             />
           </div>
         </div>
       </section>
-      
-      {/* Request Form Section */}
-      <section id="request" className="section gradient-bg text-white">
-        <div className="container mx-auto">
+
+      {/* Форма заказа персонала */}
+      <section id="request-form" className="py-20 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                Получите персонал уже сегодня
-              </h2>
-              <p className="text-xl opacity-90 mb-8">
-                Заполните форму или позвоните нам, и мы оперативно подберем персонал для ваших задач
-              </p>
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                  Закажите персонал прямо сейчас
+                </h2>
+                <p className="text-xl text-blue-100 mb-8">
+                  Заполните форму или позвоните нам — подберем персонал под ваши задачи в кратчайшие сроки
+                </p>
+              </div>
               
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Быстрый старт</h3>
-                    <p className="opacity-80">Оформление документов в течение 1 рабочего дня</p>
+                    <h3 className="text-xl font-bold mb-2">Быстрое оформление</h3>
+                    <p className="text-blue-100">Подписание договора и предоставление персонала в течение 1-2 дней</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Простая замена</h3>
-                    <p className="opacity-80">Бесплатная замена сотрудников, не устроивших по качеству работы</p>
+                    <h3 className="text-xl font-bold mb-2">Гарантия качества</h3>
+                    <p className="text-blue-100">Бесплатная замена сотрудников, не соответствующих требованиям</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
+                  <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Users className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">Бесплатная консультация</h3>
-                    <p className="opacity-80">Поможем правильно определить необходимое количество персонала</p>
+                    <h3 className="text-xl font-bold mb-2">Любое количество</h3>
+                    <p className="text-blue-100">От 1 человека до крупных команд — обеспечим персоналом любой проект</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white rounded-lg shadow-xl p-6 text-gray-900">
+            <div className="bg-white rounded-2xl shadow-2xl p-8 text-gray-900">
               <ContactForm 
                 title="Заказать персонал"
-                description="Заполните форму, и мы свяжемся с вами в ближайшее время"
+                description="Оставьте заявку — перезвоним в течение 15 минут и рассчитаем стоимость"
                 ctaText="Отправить заявку"
               />
             </div>
           </div>
         </div>
       </section>
-      
-      {/* FAQ Section */}
+
+      {/* FAQ */}
       <FAQSection />
-      
-      {/* Privacy Policy Section */}
+
+      {/* Соглашение на обработку данных */}
       <PrivacyPolicy />
-      
-      {/* Contacts Section */}
-      <section id="contacts" className="section bg-gray-50">
-        <div className="container mx-auto">
-          <h2 className="section-title">Контакты</h2>
-          <p className="section-description">
-            Свяжитесь с нами удобным для вас способом
-          </p>
+
+      {/* Контакты */}
+      <section id="contacts" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              Контакты
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Свяжитесь с нами удобным способом — работаем по всему Екатеринбургу и Свердловской области
+            </p>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="w-16 h-16 gradient-bg rounded-full mx-auto flex items-center justify-center mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full mx-auto flex items-center justify-center mb-6">
                 <Phone className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Телефон</h3>
-              <p className="text-brand-700 font-medium text-lg mb-2">
+              <h3 className="text-2xl font-bold mb-4">Телефон</h3>
+              <a 
+                href={`tel:${(window as any).contactData?.phone}`}
+                className="text-blue-600 font-bold text-xl mb-2 block hover:text-blue-800 transition-colors"
+              >
                 {(window as any).contactData?.phoneDisplay}
-              </p>
-              <p className="text-gray-500 text-sm">
-                Пн-Пт: 9:00-18:00
+              </a>
+              <p className="text-gray-500">
+                Пн-Пт: 8:00-20:00<br />
+                Сб-Вс: 9:00-18:00
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="w-16 h-16 gradient-bg rounded-full mx-auto flex items-center justify-center mb-4">
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
+              <div className="w-16 h-16 bg-orange-500 rounded-full mx-auto flex items-center justify-center mb-6">
                 <Mail className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Email</h3>
-              <p className="text-brand-700 font-medium text-lg mb-2">
+              <h3 className="text-2xl font-bold mb-4">Email</h3>
+              <a 
+                href={`mailto:${(window as any).contactData?.email}`}
+                className="text-orange-600 font-bold text-xl mb-2 block hover:text-orange-800 transition-colors"
+              >
                 {(window as any).contactData?.email}
-              </p>
-              <p className="text-gray-500 text-sm">
-                Отвечаем в течение 2 часов
+              </a>
+              <p className="text-gray-500">
+                Отвечаем в течение 2 часов<br />
+                в рабочее время
               </p>
             </div>
             
-            <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <div className="w-16 h-16 gradient-bg rounded-full mx-auto flex items-center justify-center mb-4">
+            <div className="bg-white p-8 rounded-xl shadow-lg text-center">
+              <div className="w-16 h-16 bg-green-500 rounded-full mx-auto flex items-center justify-center mb-6">
                 <MapPin className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-2">Адрес</h3>
-              <p className="text-gray-700 mb-2">
+              <h3 className="text-2xl font-bold mb-4">Адрес</h3>
+              <p className="text-gray-700 font-medium text-lg mb-2">
                 {(window as any).contactData?.address}
               </p>
-              <p className="text-gray-500 text-sm">
-                Пн-Пт: 9:00-18:00
+              <p className="text-gray-500">
+                Пн-Пт: 9:00-18:00<br />
+                Прием по предварительной записи
               </p>
             </div>
           </div>
           
-          <div className="mt-12 text-center">
-            <h3 className="text-xl font-bold mb-4">Свяжитесь с нами в мессенджерах</h3>
+          <div className="text-center">
+            <h3 className="text-2xl font-bold mb-6">Быстрая связь в мессенджерах</h3>
             <div className="flex justify-center">
               <ContactButtons size="lg" />
             </div>
           </div>
         </div>
       </section>
-      
+
       <Footer />
     </>
   );
