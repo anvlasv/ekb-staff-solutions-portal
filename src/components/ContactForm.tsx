@@ -76,24 +76,44 @@ const ContactForm = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (validateForm()) {
       setIsSubmitting(true);
       
-      // Simulate form submission
-      setTimeout(() => {
-        console.log("Form submitted:", formData);
-        setIsSubmitting(false);
-        setFormData({
-          name: "",
-          phone: "",
-          message: "",
-          policy: false,
+      try {
+        const response = await fetch('/send-mail.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            phone: formData.phone,
+            message: formData.message
+          }),
         });
-        toast.success("Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.");
-      }, 1000);
+
+        const result = await response.json();
+
+        if (result.success) {
+          setFormData({
+            name: "",
+            phone: "",
+            message: "",
+            policy: false,
+          });
+          toast.success("Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.");
+        } else {
+          throw new Error(result.message || 'Ошибка отправки');
+        }
+      } catch (error) {
+        console.error('Ошибка отправки формы:', error);
+        toast.error("Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 

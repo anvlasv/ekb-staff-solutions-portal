@@ -33,11 +33,6 @@ const Header = () => {
       isScrolled ? "py-2" : "py-4"
     )}>
       <div className="container mx-auto px-4">
-        {/* Информация об ИП */}
-        <div className="text-center py-2 border-b border-gray-200 mb-4">
-          <p className="text-sm text-gray-600">Индивидуальный предприниматель А. Б. Васюков</p>
-        </div>
-        
         <div className="flex justify-between items-center">
           <a href="/" className="flex items-center">
             <span className="text-xl font-bold text-brand-700">ПрофПерсонал</span>

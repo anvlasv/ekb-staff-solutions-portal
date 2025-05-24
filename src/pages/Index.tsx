@@ -44,7 +44,7 @@ const Index = () => {
       <Header />
 
       {/* Hero Section - Главный экран */}
-      <section className="pt-40 pb-16 md:pt-48 md:pb-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white relative overflow-hidden">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -71,7 +71,7 @@ const Index = () => {
                 <Button 
                   variant="outline" 
                   size="lg"
-                  className="border-2 border-white text-white hover:bg-white hover:text-blue-700 px-8 py-4 text-lg font-medium"
+                  className="border-2 border-white text-blue-900 bg-white hover:bg-gray-100 hover:text-blue-800 px-8 py-4 text-lg font-medium"
                   onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
                 >
                   Узнать подробнее
