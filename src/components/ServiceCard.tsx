@@ -1,53 +1,41 @@
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { ReactNode } from "react";
 
-type ServiceCardProps = {
+interface ServiceCardProps {
   title: string;
   description: string;
-  icon: React.ReactNode;
-  features?: string[];
-  ctaText?: string;
-  onClick?: () => void;
-};
+  icon: ReactNode;
+  features: string[];
+  onClick: () => void;
+}
 
-const ServiceCard = ({
-  title,
-  description,
-  icon,
-  features = [],
-  ctaText = "Заказать",
-  onClick,
-}: ServiceCardProps) => {
+const ServiceCard = ({ title, description, icon, features, onClick }: ServiceCardProps) => {
   return (
-    <Card className="h-full transition-all hover:shadow-lg">
-      <CardHeader>
-        <div className="w-16 h-16 bg-brand-50 rounded-lg flex items-center justify-center mb-4 text-brand-700">
-          {icon}
-        </div>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        {features.length > 0 && (
-          <ul className="space-y-2">
-            {features.map((feature, index) => (
-              <li key={index} className="flex items-start gap-2">
-                <svg className="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="text-gray-600">{feature}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </CardContent>
-      <CardFooter>
-        <Button onClick={onClick} className="w-full">
-          {ctaText}
-        </Button>
-      </CardFooter>
-    </Card>
+    <div className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full">
+      <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center text-white mb-6">
+        {icon}
+      </div>
+      
+      <h3 className="text-2xl font-bold mb-4 text-gray-900">{title}</h3>
+      <p className="text-gray-600 mb-6 leading-relaxed">{description}</p>
+      
+      <ul className="space-y-3 mb-8 flex-1">
+        {features.map((feature, index) => (
+          <li key={index} className="flex items-start gap-3">
+            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <span className="text-gray-700">{feature}</span>
+          </li>
+        ))}
+      </ul>
+      
+      <Button 
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-auto"
+        onClick={onClick}
+      >
+        Заказать
+      </Button>
+    </div>
   );
 };
 

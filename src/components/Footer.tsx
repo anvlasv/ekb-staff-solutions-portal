@@ -2,14 +2,18 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactButtons from "./ContactButtons";
 
-const Footer = () => {
+interface FooterProps {
+  onPrivacyClick: () => void;
+}
+
+const Footer = ({ onPrivacyClick }: FooterProps) => {
   // Get contact information from window object
   const contacts = (window as any).contactData || {
-    phone: "+79001234567",
-    phoneDisplay: "+7 (900) 123-45-67",
+    phone: "+79224714899",
+    phoneDisplay: "+7 (922) 471-48-99",
     email: "info@profpersonal.ru",
-    whatsapp: "+79001234567",
-    telegram: "profpersonal",
+    whatsapp: "+79227837198",
+    telegram: "+79224704899",
     address: "г. Екатеринбург, ул. Ленина, 1, офис 100"
   };
 
@@ -49,10 +53,18 @@ const Footer = () => {
               </li>
               <li>
                 <button 
-                  onClick={() => scrollToSection("benefits")} 
+                  onClick={() => scrollToSection("pricing")} 
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Преимущества
+                  Цены
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => scrollToSection("testimonials")} 
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
+                  Отзывы
                 </button>
               </li>
               <li>
@@ -73,7 +85,7 @@ const Footer = () => {
               </li>
               <li>
                 <button 
-                  onClick={() => scrollToSection("privacy-policy")} 
+                  onClick={onPrivacyClick}
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Политика конфиденциальности
@@ -115,16 +127,12 @@ const Footer = () => {
           <p className="text-gray-500 text-sm mb-4 md:mb-0">
             © {currentYear} ПрофПерсонал. Все права защищены.
           </p>
-          <a 
-            href="#privacy-policy" 
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("privacy-policy");
-            }}
+          <button 
+            onClick={onPrivacyClick}
             className="text-gray-500 text-sm hover:text-white transition-colors"
           >
             Политика обработки персональных данных
-          </a>
+          </button>
         </div>
       </div>
     </footer>

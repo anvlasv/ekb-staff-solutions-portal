@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const contacts = (window as any).contactData || { phoneDisplay: "+7 (900) 123-45-67" };
+  const contacts = (window as any).contactData || { phoneDisplay: "+7 (922) 471-48-99" };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,62 +29,75 @@ const Header = () => {
 
   return (
     <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-      isScrolled ? "bg-white shadow-md py-2" : "bg-transparent py-4"
+      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-md",
+      isScrolled ? "py-2" : "py-4"
     )}>
-      <div className="container mx-auto px-4 flex justify-between items-center">
-        <a href="/" className="flex items-center">
-          <span className="text-xl font-bold text-brand-700">ПрофПерсонал</span>
-        </a>
-        
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <button 
-            onClick={() => scrollToSection("services")} 
-            className="text-gray-700 hover:text-brand-700 transition-colors"
-          >
-            Услуги
-          </button>
-          <button 
-            onClick={() => scrollToSection("benefits")} 
-            className="text-gray-700 hover:text-brand-700 transition-colors"
-          >
-            Преимущества
-          </button>
-          <button 
-            onClick={() => scrollToSection("process")} 
-            className="text-gray-700 hover:text-brand-700 transition-colors"
-          >
-            Как мы работаем
-          </button>
-          <button 
-            onClick={() => scrollToSection("faq")} 
-            className="text-gray-700 hover:text-brand-700 transition-colors"
-          >
-            Вопросы
-          </button>
-          <button 
-            onClick={() => scrollToSection("contacts")} 
-            className="text-gray-700 hover:text-brand-700 transition-colors"
-          >
-            Контакты
-          </button>
-        </nav>
-        
-        <div className="hidden md:flex items-center gap-4">
-          <a href={`tel:${contacts.phone}`} className="font-medium text-brand-700">
-            {contacts.phoneDisplay}
-          </a>
-          <Button onClick={() => scrollToSection("request")}>
-            Заказать звонок
-          </Button>
+      <div className="container mx-auto px-4">
+        {/* Информация об ИП */}
+        <div className="text-center py-2 border-b border-gray-200 mb-4">
+          <p className="text-sm text-gray-600">{contacts.entrepreneur || "Индивидуальный предприниматель А. Б. Васюков"}</p>
         </div>
         
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
-          <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </Button>
+        <div className="flex justify-between items-center">
+          <a href="/" className="flex items-center">
+            <span className="text-xl font-bold text-brand-700">ПрофПерсонал</span>
+          </a>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-6">
+            <button 
+              onClick={() => scrollToSection("services")} 
+              className="text-gray-700 hover:text-brand-700 transition-colors"
+            >
+              Услуги
+            </button>
+            <button 
+              onClick={() => scrollToSection("pricing")} 
+              className="text-gray-700 hover:text-brand-700 transition-colors"
+            >
+              Цены
+            </button>
+            <button 
+              onClick={() => scrollToSection("testimonials")} 
+              className="text-gray-700 hover:text-brand-700 transition-colors"
+            >
+              Отзывы
+            </button>
+            <button 
+              onClick={() => scrollToSection("process")} 
+              className="text-gray-700 hover:text-brand-700 transition-colors"
+            >
+              Как мы работаем
+            </button>
+            <button 
+              onClick={() => scrollToSection("faq")} 
+              className="text-gray-700 hover:text-brand-700 transition-colors"
+            >
+              Вопросы
+            </button>
+            <button 
+              onClick={() => scrollToSection("contacts")} 
+              className="text-gray-700 hover:text-brand-700 transition-colors"
+            >
+              Контакты
+            </button>
+          </nav>
+          
+          <div className="hidden md:flex items-center gap-4">
+            <a href={`tel:${contacts.phone}`} className="font-medium text-brand-700">
+              {contacts.phoneDisplay}
+            </a>
+            <Button onClick={() => scrollToSection("request")}>
+              Заказать звонок
+            </Button>
+          </div>
+          
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X /> : <Menu />}
+            </Button>
+          </div>
         </div>
       </div>
       
@@ -99,10 +112,16 @@ const Header = () => {
               Услуги
             </button>
             <button 
-              onClick={() => scrollToSection("benefits")} 
+              onClick={() => scrollToSection("pricing")} 
               className="text-gray-700 hover:text-brand-700 transition-colors py-2"
             >
-              Преимущества
+              Цены
+            </button>
+            <button 
+              onClick={() => scrollToSection("testimonials")} 
+              className="text-gray-700 hover:text-brand-700 transition-colors py-2"
+            >
+              Отзывы
             </button>
             <button 
               onClick={() => scrollToSection("process")} 

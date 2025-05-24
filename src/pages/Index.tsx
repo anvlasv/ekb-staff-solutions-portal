@@ -1,17 +1,20 @@
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import ServiceCard from "@/components/ServiceCard";
 import StepCard from "@/components/StepCard";
 import FAQSection from "@/components/FAQSection";
-import PrivacyPolicy from "@/components/PrivacyPolicy";
+import PrivacyModal from "@/components/PrivacyModal";
+import PricingSection from "@/components/PricingSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Users, Clock, Shield, Award } from "lucide-react";
 import ContactButtons from "@/components/ContactButtons";
 
 const Index = () => {
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+
   useEffect(() => {
     document.title = "Аренда линейного персонала и аутстаффинг в Екатеринбурге | ПрофКадры - Разнорабочие, грузчики, упаковщики";
     
@@ -34,7 +37,7 @@ const Index = () => {
       <Header />
 
       {/* Hero Section - Главный экран */}
-      <section className="pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white relative overflow-hidden">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -251,8 +254,14 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Цены */}
+      <PricingSection />
+
+      {/* Отзывы */}
+      <TestimonialsSection />
+
       {/* Как мы работаем */}
-      <section className="py-20 bg-gray-50">
+      <section id="process" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
@@ -350,7 +359,10 @@ const Index = () => {
       <FAQSection />
 
       {/* Соглашение на обработку данных */}
-      <PrivacyPolicy />
+      <PrivacyModal 
+        open={privacyModalOpen} 
+        onOpenChange={setPrivacyModalOpen} 
+      />
 
       {/* Контакты */}
       <section id="contacts" className="py-20 bg-gray-50">
@@ -423,7 +435,12 @@ const Index = () => {
         </div>
       </section>
 
-      <Footer />
+      <Footer onPrivacyClick={() => setPrivacyModalOpen(true)} />
+      
+      <PrivacyModal 
+        open={privacyModalOpen} 
+        onOpenChange={setPrivacyModalOpen} 
+      />
     </>
   );
 };
