@@ -29,12 +29,14 @@ const ServiceCard = ({ title, description, icon, features, onClick }: ServiceCar
         ))}
       </ul>
       
-      <Button 
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white mt-auto"
-        onClick={onClick}
-      >
-        Заказать
-      </Button>
+      <div className="mt-auto">
+        <Button 
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+          onClick={onClick}
+        >
+          Заказать
+        </Button>
+      </div>
     </div>
   );
 };

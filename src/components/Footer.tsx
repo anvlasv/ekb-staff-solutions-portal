@@ -121,7 +121,10 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
           </div>
         </div>
         
-        <hr className="border-gray-800 my-8" />
+        {/* Информация об ИП */}
+        <div className="text-center py-4 border-b border-gray-700 mb-8">
+          <p className="text-gray-400">Индивидуальный предприниматель А. Б. Васюков</p>
+        </div>
         
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm mb-4 md:mb-0">

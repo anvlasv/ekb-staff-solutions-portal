@@ -35,7 +35,7 @@ const Header = () => {
       <div className="container mx-auto px-4">
         {/* Информация об ИП */}
         <div className="text-center py-2 border-b border-gray-200 mb-4">
-          <p className="text-sm text-gray-600">{contacts.entrepreneur || "Индивидуальный предприниматель А. Б. Васюков"}</p>
+          <p className="text-sm text-gray-600">Индивидуальный предприниматель А. Б. Васюков</p>
         </div>
         
         <div className="flex justify-between items-center">

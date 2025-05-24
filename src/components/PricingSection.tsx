@@ -2,21 +2,19 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
-const PricingSection = () => {
-  const scrollToRequest = () => {
-    const element = document.getElementById("request-form");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+interface PricingSectionProps {
+  onOrderClick: () => void;
+}
 
+const PricingSection = ({ onOrderClick }: PricingSectionProps) => {
   const pricingPlans = [
     {
       title: "Разнорабочие",
-      price: "от 200",
+      price: "от 450",
       period: "час",
       description: "Универсальный персонал для различных задач",
       features: [
+        "Благоустройство",
         "Погрузочно-разгрузочные работы",
         "Уборка территории",
         "Подсобные работы",
@@ -26,7 +24,7 @@ const PricingSection = () => {
     },
     {
       title: "Грузчики",
-      price: "от 250",
+      price: "от 450",
       period: "час",
       description: "Профессиональные грузчики",
       features: [
@@ -38,35 +36,35 @@ const PricingSection = () => {
       popular: true
     },
     {
-      title: "Упаковщики",
-      price: "от 180",
-      period: "час",
-      description: "Квалифицированные упаковщики",
+      title: "Дорожники",
+      price: "2700",
+      period: "смена",
+      description: "Дорожно-строительные работы",
       features: [
-        "Упаковка товаров",
-        "Маркировка продукции",
-        "Сборка заказов",
-        "Контроль качества"
+        "Укладка асфальта",
+        "Дорожная разметка",
+        "Ремонт дорожного покрытия",
+        "Установка дорожных знаков"
       ],
       popular: false
     },
     {
-      title: "Клининг",
-      price: "от 220",
-      period: "час",
-      description: "Профессиональная уборка",
+      title: "Строители",
+      price: "3000",
+      period: "смена",
+      description: "Квалифицированные строители",
       features: [
-        "Уборка офисов",
-        "Клининг производства",
-        "Послестроительная уборка",
-        "Мойка окон"
+        "Общестроительные работы",
+        "Отделочные работы",
+        "Демонтажные работы",
+        "Бетонные работы"
       ],
       popular: false
     }
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
+    <section id="pricing" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
@@ -81,7 +79,7 @@ const PricingSection = () => {
           {pricingPlans.map((plan, index) => (
             <div 
               key={index} 
-              className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
+              className={`relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full ${
                 plan.popular ? 'ring-2 ring-blue-500 transform scale-105' : ''
               }`}
             >
@@ -110,16 +108,18 @@ const PricingSection = () => {
                   ))}
                 </ul>
                 
-                <Button 
-                  className={`w-full ${
-                    plan.popular 
-                      ? 'bg-blue-600 hover:bg-blue-700' 
-                      : 'bg-gray-800 hover:bg-gray-900'
-                  }`}
-                  onClick={scrollToRequest}
-                >
-                  Заказать
-                </Button>
+                <div className="mt-auto">
+                  <Button 
+                    className={`w-full ${
+                      plan.popular 
+                        ? 'bg-blue-600 hover:bg-blue-700' 
+                        : 'bg-gray-800 hover:bg-gray-900'
+                    }`}
+                    onClick={onOrderClick}
+                  >
+                    Заказать
+                  </Button>
+                </div>
               </div>
             </div>
           ))}
@@ -132,7 +132,7 @@ const PricingSection = () => {
           <Button 
             size="lg" 
             className="bg-orange-500 hover:bg-orange-600"
-            onClick={scrollToRequest}
+            onClick={onOrderClick}
           >
             Получить точный расчет
           </Button>
