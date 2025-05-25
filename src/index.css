@@ -164,11 +164,31 @@
 
 /* Улучшение форм */
 .form-input {
-  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 bg-white;
 }
 
 .form-textarea {
-  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 min-h-[120px] resize-none;
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 min-h-[120px] resize-none text-gray-900 bg-white;
+}
+
+/* Исправление цвета текста в полях ввода для всех форм */
+input[type="text"], 
+input[type="email"], 
+input[type="tel"], 
+input[type="number"], 
+textarea,
+select {
+  @apply text-gray-900 !important;
+  color: #111827 !important;
+}
+
+input[type="text"]::placeholder, 
+input[type="email"]::placeholder, 
+input[type="tel"]::placeholder, 
+input[type="number"]::placeholder, 
+textarea::placeholder {
+  @apply text-gray-500 !important;
+  color: #6b7280 !important;
 }
 
 /* Улучшение кнопок */

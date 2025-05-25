@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
@@ -37,7 +36,7 @@ const PricingSection = ({ onOrderClick }: PricingSectionProps) => {
     },
     {
       title: "Дорожники",
-      price: "2700",
+      price: "3700",
       period: "смена",
       description: "Дорожно-строительные работы",
       features: [
@@ -50,7 +49,7 @@ const PricingSection = ({ onOrderClick }: PricingSectionProps) => {
     },
     {
       title: "Строители",
-      price: "3000",
+      price: "4000",
       period: "смена",
       description: "Квалифицированные строители",
       features: [
