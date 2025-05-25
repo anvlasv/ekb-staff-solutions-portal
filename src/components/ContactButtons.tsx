@@ -14,7 +14,7 @@ const ContactButtons = ({ variant = "default", size = "default", showText = true
     phone: "+79224714899",
     email: "info@profpersonal.ru",
     whatsapp: "+79227837198",
-    telegram: "+79224704899"
+    telegram: "tmnsklwork"
   };
 
   return (
@@ -37,7 +37,7 @@ const ContactButtons = ({ variant = "default", size = "default", showText = true
       </Button>
       
       <Button variant={variant} size={size} asChild>
-        <a href={`https://t.me/${contacts.telegram.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+        <a href={`https://t.me/${contacts.telegram}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.248l-1.931 9.03c-.146.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.054 5.56-5.022c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.59-4.47c.538-.196 1.006.128.774 1.201z"></path>
           </svg>
