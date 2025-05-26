@@ -4,9 +4,10 @@ import ContactButtons from "./ContactButtons";
 
 interface FooterProps {
   onPrivacyClick: () => void;
+  onPrivacyPolicyClick: () => void;
 }
 
-const Footer = ({ onPrivacyClick }: FooterProps) => {
+const Footer = ({ onPrivacyClick, onPrivacyPolicyClick }: FooterProps) => {
   // Get contact information from window object
   const contacts = (window as any).contactData || {
     phone: "+79224714899",
@@ -85,7 +86,7 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
               </li>
               <li>
                 <button 
-                  onClick={onPrivacyClick}
+                  onClick={onPrivacyPolicyClick}
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Политика конфиденциальности
@@ -123,13 +124,23 @@ const Footer = ({ onPrivacyClick }: FooterProps) => {
         
         {/* Информация об ИП */}
         <div className="text-center py-4 border-b border-gray-700 mb-8">
-          <p className="text-gray-400">Индивидуальный предприниматель А. Б. Васюков</p>
+          <p className="text-gray-400">ИП А.Б. Васюков ИНН 860319248616</p>
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm mb-4 md:mb-0">
-            © {currentYear} ПрофПерсонал. Все права защищены.
-          </p>
+          <div className="text-center md:text-left mb-4 md:mb-0">
+            <p className="text-gray-500 text-sm mb-2">
+              © {currentYear} ПрофПерсонал. Все права защищены.
+            </p>
+            <a 
+              href="https://t.me/person_grata"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 text-sm hover:text-white transition-colors"
+            >
+              Разработка и поддержка сайта SV-Group
+            </a>
+          </div>
           <button 
             onClick={onPrivacyClick}
             className="text-gray-500 text-sm hover:text-white transition-colors"

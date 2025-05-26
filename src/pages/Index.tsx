@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,6 +6,7 @@ import ServiceCard from "@/components/ServiceCard";
 import StepCard from "@/components/StepCard";
 import FAQSection from "@/components/FAQSection";
 import PrivacyModal from "@/components/PrivacyModal";
+import PrivacyPolicyModal from "@/components/PrivacyPolicyModal";
 import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import OrderModal from "@/components/OrderModal";
@@ -16,6 +16,7 @@ import ContactButtons from "@/components/ContactButtons";
 
 const Index = () => {
   const [privacyModalOpen, setPrivacyModalOpen] = useState(false);
+  const [privacyPolicyModalOpen, setPrivacyPolicyModalOpen] = useState(false);
   const [orderModalOpen, setOrderModalOpen] = useState(false);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ const Index = () => {
                 Аренда линейного персонала в Екатеринбурге
               </h1>
               <p className="text-xl md:text-2xl font-medium text-blue-100">
-                Аутстаффинг • Разнорабочие • Грузчики • Упаковщики
+                Строители • Разнорабочие • Грузчики • Упаковщики
               </p>
               <p className="text-lg text-blue-50 leading-relaxed">
                 Предоставляем квалифицированный персонал для вашего бизнеса от 1 дня до постоянного сотрудничества. 
@@ -437,11 +438,19 @@ const Index = () => {
         </div>
       </section>
 
-      <Footer onPrivacyClick={() => setPrivacyModalOpen(true)} />
+      <Footer 
+        onPrivacyClick={() => setPrivacyModalOpen(true)} 
+        onPrivacyPolicyClick={() => setPrivacyPolicyModalOpen(true)}
+      />
       
       <PrivacyModal 
         open={privacyModalOpen} 
         onOpenChange={setPrivacyModalOpen} 
+      />
+
+      <PrivacyPolicyModal 
+        open={privacyPolicyModalOpen} 
+        onOpenChange={setPrivacyPolicyModalOpen} 
       />
 
       <OrderModal 

@@ -136,7 +136,7 @@ const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
                 <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
                   Мессенджеры
                 </h4>
-                <ContactButtons variant="outline" showText={true} className="w-full" />
+                <ContactButtons variant="outline" showText={true} />
               </div>
             </div>
           </div>
