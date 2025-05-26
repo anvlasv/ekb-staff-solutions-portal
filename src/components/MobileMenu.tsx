@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, MessageCircle, Mail, MapPin } from "lucide-react";
 import ContactButtons from "./ContactButtons";
+import OrderModal from "./OrderModal";
 import { cn } from "@/lib/utils";
 
 interface MobileMenuProps {
@@ -12,6 +13,8 @@ interface MobileMenuProps {
 }
 
 const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
+  const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+  
   const contacts = (window as any).contactData || { 
     phoneDisplay: "+7 (922) 471-48-99",
     phone: "+79224714899",
@@ -25,6 +28,11 @@ const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
       element.scrollIntoView({ behavior: "smooth" });
     }
     onClose();
+  };
+
+  const handleOrderCall = () => {
+    onClose();
+    setIsOrderModalOpen(true);
   };
 
   const menuItems = [
@@ -145,13 +153,19 @@ const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
           <div className="border-t border-gray-200 p-6">
             <Button 
               className="w-full h-12 text-base font-semibold"
-              onClick={() => scrollToSection("request")}
+              onClick={handleOrderCall}
             >
               Заказать звонок
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Модальное окно заказа */}
+      <OrderModal 
+        open={isOrderModalOpen} 
+        onOpenChange={setIsOrderModalOpen} 
+      />
     </>
   );
 };
