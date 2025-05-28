@@ -33,7 +33,14 @@ const Header = () => {
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex justify-between items-center">
           <a href="/" className="flex items-center">
-            <span className="text-xl font-bold text-brand-700">ПрофПерсонал</span>
+            <img 
+              src="/lovable-uploads/0ef5be90-b6ee-4fd6-884c-a077c4324237.png" 
+              alt="ПрофПерсонал" 
+              className={cn(
+                "transition-all duration-300",
+                isScrolled ? "h-8" : "h-10"
+              )}
+            />
           </a>
           
           {/* Desktop Navigation */}
