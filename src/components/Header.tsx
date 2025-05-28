@@ -37,8 +37,8 @@ const Header = () => {
               src="/lovable-uploads/0ef5be90-b6ee-4fd6-884c-a077c4324237.png" 
               alt="ПрофПерсонал" 
               className={cn(
-                "transition-all duration-300",
-                isScrolled ? "h-8" : "h-10"
+                "transition-all duration-300 object-contain",
+                isScrolled ? "h-12" : "h-16"
               )}
             />
           </a>
