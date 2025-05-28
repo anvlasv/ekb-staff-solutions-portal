@@ -1,8 +1,22 @@
 
 import { useEffect } from "react";
+import { useRegionConfig } from "@/hooks/useRegionConfig";
 
 const ScriptsLoader = () => {
+  const regionConfig = useRegionConfig();
+
   useEffect(() => {
+    // Обновляем глобальные контактные данные из региональной конфигурации
+    (window as any).contactData = {
+      phone: regionConfig.phone,
+      phoneDisplay: regionConfig.phoneDisplay,
+      email: regionConfig.email,
+      whatsapp: regionConfig.whatsapp,
+      telegram: regionConfig.telegram,
+      address: regionConfig.address,
+      entrepreneur: regionConfig.entrepreneur
+    };
+
     // Function to add Yandex.Metrika counter (for example)
     // Replace with actual script when needed
     const addYandexMetrika = () => {
@@ -32,24 +46,40 @@ const ScriptsLoader = () => {
       script.type = 'application/ld+json';
       script.textContent = JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "ПрофПерсонал",
+        "@type": "LocalBusiness",
+        "name": regionConfig.structuredData.businessName,
         "url": window.location.origin,
         "logo": window.location.origin + "/logo.png",
         "contactPoint": {
           "@type": "ContactPoint",
-          "telephone": (window as any).contactData?.phone || "+79001234567",
+          "telephone": regionConfig.phone,
           "contactType": "customer service",
-          "areaServed": "Екатеринбург и Свердловская область",
+          "areaServed": regionConfig.structuredData.serviceArea,
           "availableLanguage": "Russian"
         },
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "Екатеринбург",
-          "addressRegion": "Свердловская область",
+          "streetAddress": regionConfig.address,
+          "addressLocality": regionConfig.city,
+          "addressRegion": regionConfig.region,
           "addressCountry": "Россия"
         },
-        "description": "Аренда линейного персонала и аутстаффинг в Екатеринбурге. Разнорабочие, грузчики, упаковщики, сортировщики, клининг, строители."
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": regionConfig.coordinates.latitude,
+          "longitude": regionConfig.coordinates.longitude
+        },
+        "openingHours": regionConfig.workingHours,
+        "serviceArea": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": regionConfig.coordinates.latitude,
+            "longitude": regionConfig.coordinates.longitude
+          },
+          "geoRadius": regionConfig.serviceRadius
+        },
+        "description": regionConfig.structuredData.description
       });
       document.head.appendChild(script);
     };
@@ -59,7 +89,7 @@ const ScriptsLoader = () => {
     return () => {
       // Cleanup if needed
     };
-  }, []);
+  }, [regionConfig]);
 
   return null; // This component doesn't render anything visible
 };

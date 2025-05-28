@@ -38,7 +38,7 @@ const Header = () => {
               alt="ПрофПерсонал" 
               className={cn(
                 "transition-all duration-300 object-contain",
-                isScrolled ? "h-14" : "h-20"
+                isScrolled ? "h-14" : "h-15"
               )}
             />
           </a>
