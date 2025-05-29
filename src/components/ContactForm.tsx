@@ -83,6 +83,8 @@ const ContactForm = ({
       setIsSubmitting(true);
       
       try {
+        console.log('Отправка формы...');
+        
         const response = await fetch('/send-mail.php', {
           method: 'POST',
           headers: {
@@ -95,13 +97,23 @@ const ContactForm = ({
           }),
         });
 
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
+        console.log('Статус ответа:', response.status);
+        console.log('Заголовки ответа:', Object.fromEntries(response.headers.entries()));
+
+        // Получаем текст ответа для отладки
+        const responseText = await response.text();
+        console.log('Текст ответа от сервера:', responseText);
+
+        let result;
+        try {
+          result = JSON.parse(responseText);
+        } catch (parseError) {
+          console.error('Ошибка парсинга JSON:', parseError);
+          console.log('Ответ сервера не является валидным JSON:', responseText);
           throw new Error('Сервер вернул некорректный ответ');
         }
 
-        const result = await response.json();
-        console.log('Server response:', result);
+        console.log('Обработанный ответ сервера:', result);
 
         if (result.success) {
           setFormData({

@@ -1,9 +1,13 @@
 
 <?php
+// Устанавливаем заголовки в самом начале
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
+
+// Отключаем буферизацию вывода
+ob_clean();
 
 // Проверяем метод запроса
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -34,9 +38,9 @@ if (empty($name) || empty($phone)) {
 }
 
 // Настройки электронной почты
-$to = 'info@profkadry-ekb.ru'; // Замените на ваш email
+$to = 'info@profkadry-ekb.ru';
 $subject = 'Новая заявка с сайта ПрофПерсонал';
-$from = 'noreply@profkadry-ekb.ru'; // Замените на ваш домен
+$from = 'noreply@profkadry-ekb.ru';
 
 // Формируем содержимое письма
 $email_content = "Новая заявка с сайта ПрофПерсонал\n\n";
@@ -57,7 +61,7 @@ $headers .= "X-Mailer: PHP/" . phpversion();
 // Отправляем письмо
 $mailResult = mail($to, $subject, $email_content, $headers);
 
-// Возвращаем JSON ответ
+// Возвращаем только JSON ответ
 if ($mailResult) {
     http_response_code(200);
     echo json_encode([
@@ -72,6 +76,5 @@ if ($mailResult) {
     ]);
 }
 
-// Принудительно завершаем выполнение, чтобы не было дополнительного вывода
 exit;
 ?>
