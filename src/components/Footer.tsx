@@ -1,6 +1,7 @@
 
 import { Mail, MapPin, Phone } from "lucide-react";
 import ContactButtons from "./ContactButtons";
+import { useRegionConfig } from "@/hooks/useRegionConfig";
 
 interface FooterProps {
   onPrivacyClick: () => void;
@@ -8,16 +9,7 @@ interface FooterProps {
 }
 
 const Footer = ({ onPrivacyClick, onPrivacyPolicyClick }: FooterProps) => {
-  // Get contact information from window object
-  const contacts = (window as any).contactData || {
-    phone: "+79224714899",
-    phoneDisplay: "+7 (922) 471-48-99",
-    email: "info@profpersonal.ru",
-    whatsapp: "+79227837198",
-    telegram: "+79224704899",
-    address: "г. Екатеринбург, ул. Ленина, 1, офис 100"
-  };
-
+  const regionConfig = useRegionConfig();
   const currentYear = new Date().getFullYear();
 
   const scrollToSection = (id: string) => {
@@ -35,7 +27,7 @@ const Footer = ({ onPrivacyClick, onPrivacyPolicyClick }: FooterProps) => {
           <div>
             <h3 className="text-xl font-bold mb-4 text-white">ПрофПерсонал</h3>
             <p className="text-gray-400 mb-4">
-              Профессиональные услуги по аренде персонала и аутстаффингу в Екатеринбурге и Свердловской области.
+              Профессиональные услуги по аренде персонала и аутстаффингу в {regionConfig.city} и {regionConfig.region}.
             </p>
             <ContactButtons variant="ghost" />
           </div>
@@ -102,20 +94,20 @@ const Footer = ({ onPrivacyClick, onPrivacyPolicyClick }: FooterProps) => {
               <li className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="font-medium text-white">{contacts.phoneDisplay}</p>
+                  <p className="font-medium text-white">{regionConfig.phoneDisplay}</p>
                   <p className="text-gray-400 text-sm">Пн-Пт: 9:00-18:00</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-white">{contacts.email}</p>
+                  <p className="text-white">{regionConfig.email}</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-brand-500 flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-white">{contacts.address}</p>
+                  <p className="text-white">{regionConfig.address}</p>
                 </div>
               </li>
             </ul>
@@ -124,7 +116,7 @@ const Footer = ({ onPrivacyClick, onPrivacyPolicyClick }: FooterProps) => {
         
         {/* Информация об ИП */}
         <div className="text-center py-4 border-b border-gray-700 mb-8">
-          <p className="text-gray-400">ИП А.Б. Васюков ИНН 860319248616</p>
+          <p className="text-gray-400">{regionConfig.entrepreneur}</p>
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-center">

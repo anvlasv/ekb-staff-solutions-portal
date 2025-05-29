@@ -3,11 +3,12 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import MobileMenu from "./MobileMenu";
 import { cn } from "@/lib/utils";
+import { useRegionConfig } from "@/hooks/useRegionConfig";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const contacts = (window as any).contactData || { phoneDisplay: "+7 (922) 471-48-99" };
+  const regionConfig = useRegionConfig();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,10 +35,10 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <a href="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/b325ac69-e8ce-430b-985c-fc781f6eab26.png" 
+              src="/lovable-uploads/0ef5be90-b6ee-4fd6-884c-a077c4324237.png" 
               alt="ПрофПерсонал" 
               className={cn(
-                "transition-all duration-300 object-contain",
+                "transition-all duration-300 object-contain h-15",
                 isScrolled ? "h-14" : "h-15"
               )}
             />
@@ -84,8 +85,8 @@ const Header = () => {
           </nav>
           
           <div className="hidden md:flex items-center gap-4">
-            <a href={`tel:${contacts.phone}`} className="font-medium text-brand-700">
-              {contacts.phoneDisplay}
+            <a href={`tel:${regionConfig.phone}`} className="font-medium text-brand-700">
+              {regionConfig.phoneDisplay}
             </a>
             <Button onClick={() => scrollToSection("request")}>
               Заказать звонок

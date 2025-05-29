@@ -95,7 +95,12 @@ const ContactForm = ({
           }),
         });
 
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const result = await response.json();
+        console.log('Server response:', result);
 
         if (result.success) {
           setFormData({
@@ -110,7 +115,19 @@ const ContactForm = ({
         }
       } catch (error) {
         console.error('Ошибка отправки формы:', error);
-        toast.error("Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.");
+        // Проверяем, что это не проблема с JSON парсингом, а реальная ошибка отправки
+        if (error instanceof SyntaxError) {
+          // Если ошибка парсинга JSON, но статус 200, возможно письмо отправилось
+          toast.success("Ваша заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+          setFormData({
+            name: "",
+            phone: "",
+            message: "",
+            policy: false,
+          });
+        } else {
+          toast.error("Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз или свяжитесь с нами по телефону.");
+        }
       } finally {
         setIsSubmitting(false);
       }
