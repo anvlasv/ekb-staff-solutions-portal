@@ -29,17 +29,17 @@ const Header = () => {
   return (
     <header className={cn(
       "fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white shadow-md",
-      isScrolled ? "py-2" : "py-4"
+      isScrolled ? "py-1" : "py-2"
     )}>
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="flex justify-between items-center">
           <a href="/" className="flex items-center">
             <img 
-              src="/lovable-uploads/0ef5be90-b6ee-4fd6-884c-a077c4324237.png" 
+              src="/lovable-uploads/b325ac69-e8ce-430b-985c-fc781f6eab26.png" 
               alt="ПрофПерсонал" 
               className={cn(
-                "transition-all duration-300 object-contain h-15",
-                isScrolled ? "h-14" : "h-15"
+                "transition-all duration-300 object-contain",
+                isScrolled ? "h-12" : "h-14"
               )}
             />
           </a>
