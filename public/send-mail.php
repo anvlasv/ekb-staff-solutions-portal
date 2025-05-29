@@ -55,10 +55,23 @@ $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
 // Отправляем письмо
-if (mail($to, $subject, $email_content, $headers)) {
-    echo json_encode(['success' => true, 'message' => 'Заявка успешно отправлена']);
+$mailResult = mail($to, $subject, $email_content, $headers);
+
+// Возвращаем JSON ответ
+if ($mailResult) {
+    http_response_code(200);
+    echo json_encode([
+        'success' => true, 
+        'message' => 'Заявка успешно отправлена'
+    ]);
 } else {
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'Ошибка отправки письма']);
+    echo json_encode([
+        'success' => false, 
+        'message' => 'Ошибка отправки письма. Попробуйте позже.'
+    ]);
 }
+
+// Принудительно завершаем выполнение, чтобы не было дополнительного вывода
+exit;
 ?>
